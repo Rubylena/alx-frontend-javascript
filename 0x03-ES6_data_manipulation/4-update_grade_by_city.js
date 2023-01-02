@@ -1,17 +1,19 @@
 const updateStudentGradeByCity = (arr, city, newGrades) => {
-  const dev = newGrades.map((ve) => ve.studentId);
-  arr.forEach((item) => item.grade = 'N/A');
-  const sameCities = arr.filter((item) => item.location === city)
-    .map((v) => {
-      if (dev.includes(v.id)) {
-        const result = newGrades.map((ve) => ve.grade);
-        v.grade = result;
-        return v;
+  const studentOfSameCities = arr.filter((item) => item.location === city);
+  for (const student of studentOfSameCities) {
+    student.grade = 'N/A';
+  }
+
+  const gradeOfStudent = studentOfSameCities.map((studentOfSameCities) => {
+    const oneStudent = studentOfSameCities;
+    for (const grade of newGrades) {
+      if (oneStudent.id === grade.studentId) {
+        oneStudent.grade = grade.grade;
       }
-      return v;
-    });
-  return sameCities;
-//   ({ ...v, grade: 'N/A' })
+    }
+    return oneStudent;
+  });
+  return gradeOfStudent;
 };
 
 export default updateStudentGradeByCity;
